@@ -7,7 +7,7 @@ namespace PlantProject.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [Required]
         public string Name { get; set; }
         public string Paragraph { get; set; }
         public Color Color { get; set; } 
