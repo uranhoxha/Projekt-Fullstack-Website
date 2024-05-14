@@ -11,6 +11,7 @@ namespace PlantProject.Models
         [StringLength(80)]
         public string Name { get; set; }
         [Required]
+        [StringLength(80)]
         public string Paragraph { get; set; }
         public Color Color { get; set; } 
         public Season Season { get; set; }
