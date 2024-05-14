@@ -8,7 +8,9 @@ namespace PlantProject.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [StringLength(80)]
         public string Name { get; set; }
+        [Required]
         public string Paragraph { get; set; }
         public Color Color { get; set; } 
         public Season Season { get; set; }
