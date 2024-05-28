@@ -1,0 +1,157 @@
+﻿@model List<PlantProject.Models.Plant>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .content-container {
+            margin-top: 50px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+
+        .plant-container {
+            border: 1px solid rgba(147, 197, 114, 0.5);
+            background-color: rgba(147, 197, 114, 0.3);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .plant-container {
+            border: 1px solid rgba(147, 197, 114, 0.5);
+            background-color: rgba(147, 197, 114, 0.3);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+            .plant-container img {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+        .plant-details {
+            flex: 1;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+
+    <script src="~/js/site.js"></script>
+</head>
+
+<body>
+    <h5>Filter and get specific results or <strong><a href="#hello"> SCROLL DOWN </a></strong> and dive deep into our gallery</h5>
+    <br />
+
+    <form asp-controller="Search" asp-action="Index" method="get" class="form-inline mb-4" onsubmit="return validateSearchForm()">
+        <div class="form-group mr-2">
+            <label for="searchName" class="sr-only">Name</label>
+            <input type="text" id="searchName" name="searchName" class="form-control" placeholder="Name" />
+        </div>
+        <div class="form-group mr-2">
+            <label for="searchSeason" class="sr-only">Season</label>
+            <input type="text" id="searchSeason" name="searchSeason" class="form-control" placeholder="Season" />
+        </div>
+        <div class="form-group mr-2">
+            <label for="searchType" class="sr-only"> Type </label>
+            <input type="text" id="searchType" name="searchType" class="form-control" placeholder="Type" />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+  
+    <div id="hello" class="content-container">
+        <div class="grid-container" id="grid-container">
+
+            @{
+                var i = 0;
+            }
+            @foreach (var plant in Model)
+            {
+                var cssClass = i % 2 == 0 ? "even" : "odd";
+                <div class="plant-container">
+                    <div class="plant-image">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(plant.Photo)" alt="Plant Image" />
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+
+                    </div>
+                    <div class="plant-details">
+                        <h2>@plant.Name</h2>
+                        <p>@plant.Paragraph</p>
+                        <p><strong>Season:</strong> @plant.Season</p>
+                        <p><strong>Type:</strong> @plant.Type</p>
+                        <p><strong>Side Effects:</strong> @plant.SideEffects</p>
+                        <p><strong>Care:</strong> @plant.Care</p>
+                    </div>
+                </div>
+
+                i++;
+            }
+        </div>
+    </div>
+
+    <script>
+        // Shuffle function
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+        }
+
+        // Apply shuffle and random sizes to grid items
+        document.addEventListener("DOMContentLoaded", function () {
+            const gridContainer = document.getElementById("grid-container");
+            const items = Array.from(gridContainer.children);
+            const shuffledItems = shuffle(items);
+
+            shuffledItems.forEach(item => {
+                const randomHeight = 300 + Math.random() * 100; // Random height between 300px and 400px
+                item.style.height = `${randomHeight}px`;
+                item.style.flexBasis = `${randomHeight}px`; // Ensure the item size reflects the random height
+            });
+
+            gridContainer.innerHTML = "";
+            shuffledItems.forEach(item => {
+                gridContainer.appendChild(item);
+            });
+        });
+    </script>
+</body>
+</html>

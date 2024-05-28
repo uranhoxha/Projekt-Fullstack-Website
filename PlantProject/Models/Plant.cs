@@ -10,22 +10,22 @@ namespace PlantProject.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(20)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
-        public string Name { get; set; }
+        [StringLength(30)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$", ErrorMessage ="Please stick to using characters such as -Aa-")]
+        public string? Name { get; set; }
 
         [Required]
-        [StringLength(80)]
+        [StringLength(200)]
         public string Paragraph { get; set; }
 
         [Required]
-        public Color Color { get; set; }
+        public string Color { get; set; }
 
         [Required]
-        public Season Season { get; set; }
+        public string Season { get; set; }
 
         [Required]
-        public Type Type { get; set; }
+        public string Type { get; set; }
         public string Care { get; set; }
 
 
@@ -35,10 +35,8 @@ namespace PlantProject.Models
 
         public bool Health { get; set; }
 
-        [Required]
-        public string Photo { get; set; }
-
-
+        public byte[]? Photo { get; set; }
 
     }
 }
+//algotritmi i levanshtajnit

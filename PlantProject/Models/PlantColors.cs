@@ -2,7 +2,7 @@
 
 namespace PlantProject.Models
 {
-    public class Color
+    public class PlantColors
     {
         [Key]
         public int Id { get; set; }
