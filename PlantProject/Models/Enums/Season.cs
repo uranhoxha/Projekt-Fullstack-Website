@@ -1,11 +1,12 @@
-﻿namespace PlantProject.Models
+﻿namespace PlantProject.Models.Enums
 {
     public enum Season
     {
         Spring,
         Summer,
-        Fall,
+        Autumn,
         Winter,
-        AllSeasons
+        All
     }
 }
+

@@ -35,8 +35,8 @@ namespace PlantProject.Models
 
         public bool Health { get; set; }
 
-        public byte[]? Photo { get; set; }
+        public byte[]? Photo { get; set; } 
 
     }
 }
-//algotritmi i levanshtajnit
+//algoritmi i levanshtajnit

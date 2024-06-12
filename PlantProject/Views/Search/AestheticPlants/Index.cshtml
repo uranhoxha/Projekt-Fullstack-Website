@@ -1,0 +1,156 @@
+﻿@model List<PlantProject.Models.aestheticPlants>
+
+@{
+    ViewData["Title"] = "Search Page";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter</title>
+    <style>
+        body {
+            background-color: #E6E6FA;
+        }
+
+        .the-card {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .the-card :hover{
+
+            transition: background-color 0.3s ease;
+                transform: scale(1.005);
+            }     
+
+        .plant-container {
+            border: 1px solid #D8BFD8;
+            background-color: #D8BFD8;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+
+        .filter {
+            padding: 10px;
+            space: 5px;
+        }
+
+
+        /*rgb(123,182,100)*/
+
+
+       
+            .plant-container img {
+                width: 110%;
+                height: 200px;
+                max-height: 180px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+        .filteri {
+            margin-inline: 5px
+        }
+
+        .navbar-search ul{
+            list-style-type: none;
+            background-color: violet;
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        .navbar-search a{
+            color: darkviolet;
+            text-decoration: none;
+            padding: 15px;
+            display: block;
+            text-align: center;
+        }
+        .navbar-search li{
+            float: left;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar-search">
+
+        <ul>
+            <li><a > Decorative Plants </a></li>
+            <li><a> Medicinal Plants </a></li>
+            <li><a asp-area="" asp-controller="EdiblePlants" asp-action="Index"> Culinary Plants </a></li>
+        </ul>
+
+    </nav>
+
+    <h5>Filter and get specific results or <strong><a style="color:#662d91; text-decoration: none;" href="#hello"> go down </a></strong> and dive deep into our gallery</h5>
+    <br />
+
+
+    <form id="filter" asp-controller="AestheticPlants" asp-action="Index" method="get" class="form-inline mb-4" onsubmit="return validateSearchForm()">
+        <div class="filteri">
+            <label for="searchName" class="sr-only">Name</label>
+            <input type="text" id="searchName" name="searchName" class="form-control" placeholder="Name" />
+        </div>
+        <div class="filteri">
+            <label for="searchSeason" class="sr-only">Season</label>
+            <input type="text" id="searchSeason" name="searchSeason" class="form-control" placeholder="Season" />
+        </div>
+        <div class="filteri">
+            <label for="searchColor" class="sr-only">Color</label>
+            <input type="text" id="searchColor" name="searchColor" class="form-control" placeholder="Color" />
+        </div>
+        <div class="filteri">
+            <label for="searchEnvironment" class="sr-only">Environment</label>
+            <input type="text" id="searchEnvironment" name="searchEnvironment" class="form-control" placeholder="Environment" />
+        </div>
+        <br />
+        <button style="background-color:#DDA0DD; border-color:#DDA0DD; color:#662d91;" type="submit" class="btn btn-primary"><strong>Filter</strong></button>
+    </form>
+
+
+
+    <div id="hello" class="the-card">
+
+        @foreach (var plant in Model)
+        {
+            <a asp-controller="AestheticPlants" asp-action="Details" asp-route-id="@plant.Id" style="text-align: center">
+                <button style="border-radius:20px; border:none; background-color:#DDA0DD;">
+
+                    <div class="plant-container">
+
+
+                        <div class="plant-image" style="margin-bottom: px;">
+
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(plant.Photo)" alt="Plant Image" />
+                        </div>
+
+                        
+
+                    </div>
+                    <strong>
+                        <h3 style="color:#662d91;">@plant.Name</h3>
+                    </strong>
+                </button>
+            </a>
+        }
+    </div>
+    <br />
+    
+    <p> Change the filtering criteria to get more results</p>
+</body>
+</html>
